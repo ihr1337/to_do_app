@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/common/dialog_builder_mixin.dart';
@@ -15,6 +17,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with DialogBuilderMixin {
+  @override
+  void initState() {
+    super.initState();
+
+    scheduleMicrotask(_init);
+  }
+
+  void _init([_]) async {
+    final notifier = context.read<ToDoListNotifier>();
+    await notifier.init();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ToDoListNotifier>(
