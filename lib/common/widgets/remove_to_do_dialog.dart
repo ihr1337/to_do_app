@@ -14,6 +14,9 @@ class RemoveToDoDialog extends StatelessWidget {
         child: Text(
           'Are you sure you want to delete this to do?',
           textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 20,
+          ),
         ),
       ),
       actions: [
