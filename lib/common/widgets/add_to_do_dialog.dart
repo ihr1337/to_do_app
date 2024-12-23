@@ -33,12 +33,23 @@ class _AddToDoDialogState extends State<AddToDoDialog> {
       actions: [
         BaseButton(
           style: BaseButtonStyle.confirm(),
+          disabledStyle: BaseButtonStyle(
+            color: Colors.green[200]!,
+            highlightColor: Colors.green[200]!,
+            labelColor: Colors.white,
+          ),
           label: AppStrings.add,
+          enabled: _controller.text.isNotEmpty,
           onTap: _confirm,
         ),
         const SizedBox(height: 5),
         BaseButton(
           style: BaseButtonStyle.cancel(),
+          disabledStyle: BaseButtonStyle(
+            color: Colors.red[200]!,
+            highlightColor: Colors.red[400]!,
+            labelColor: Colors.white,
+          ),
           label: AppStrings.cancel,
           onTap: () => Navigator.pop(context, false),
         ),
@@ -55,6 +66,7 @@ class _AddToDoDialogState extends State<AddToDoDialog> {
                 border: const OutlineInputBorder(),
                 labelText: AppStrings.newToDoTitle,
               ),
+              onChanged: (value) => setState(() {}),
               minLines: 1,
               maxLines: 5,
             ),

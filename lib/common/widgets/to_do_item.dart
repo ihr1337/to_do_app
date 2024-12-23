@@ -20,25 +20,16 @@ class ToDoItem extends StatelessWidget {
         horizontal: 20,
       ),
       child: Material(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          side: BorderSide(color: Colors.green[200]!),
+        ),
         child: InkWell(
+          borderRadius: BorderRadius.circular(10.0),
           onTap: onTap,
-          child: Container(
-            height: 80,
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(0.1, 0.3),
-                  color: Colors.green,
-                  blurRadius: 0.5,
-                ),
-              ],
-            ),
-            padding: const EdgeInsets.all(10),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

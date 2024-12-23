@@ -2,34 +2,40 @@ import 'package:flutter/material.dart';
 
 class BaseButton extends StatelessWidget {
   final String label;
+  final bool enabled;
   final BaseButtonStyle style;
+  final BaseButtonStyle? disabledStyle;
   final VoidCallback onTap;
 
   const BaseButton({
     super.key,
     required this.label,
+    this.enabled = true,
     required this.style,
+    this.disabledStyle,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final buttonStyle = (enabled ? style : disabledStyle) ?? style;
+
     return SizedBox(
-      height: style.height,
+      height: buttonStyle.height,
       child: Material(
-        color: style.color,
+        color: buttonStyle.color,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25.0),
         ),
         clipBehavior: Clip.hardEdge,
         child: InkWell(
-          onTap: onTap,
-          highlightColor: style.highlightColor,
-          splashColor: style.highlightColor,
+          onTap: enabled ? onTap : null,
+          highlightColor: buttonStyle.highlightColor,
+          splashColor: buttonStyle.highlightColor,
           child: Center(
             child: Text(
               label,
-              style: TextStyle(color: style.labelColor),
+              style: TextStyle(color: buttonStyle.labelColor),
             ),
           ),
         ),

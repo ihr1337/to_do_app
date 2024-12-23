@@ -1,5 +1,5 @@
 class ToDo {
-  final int id;
+  final String id;
   final String label;
   final DateTime dateCreated;
   bool isDone;

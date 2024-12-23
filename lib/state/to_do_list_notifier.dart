@@ -1,15 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:to_do_app/models/to_do.dart';
+import 'package:uuid/uuid.dart';
 
 class ToDoListNotifier extends ChangeNotifier {
   static const String _hiveBox = 'todos';
+
+  Uuid? uuid;
 
   final List<ToDo> _toDoList = [];
 
   List<ToDo> get toDoList => _toDoList;
 
   String? _toDoTitleBuffer;
+
+  ToDoListNotifier() {
+    uuid = const Uuid();
+  }
 
   Future<void> init() async {
     await _openHiveBox();
@@ -20,7 +27,7 @@ class ToDoListNotifier extends ChangeNotifier {
 
   void addToDo() {
     final toDo = ToDo(
-      id: toDoList.length,
+      id: uuid!.v1().toString(),
       label: _toDoTitleBuffer ?? 'New',
       dateCreated: DateTime.now(),
       isDone: false,
@@ -30,7 +37,7 @@ class ToDoListNotifier extends ChangeNotifier {
     _toDoTitleBuffer = null;
 
     Hive.box(_hiveBox).put(
-      toDo.id.toString(),
+      toDo.id,
       toDo.toJson(),
     );
     notifyListeners();
@@ -44,9 +51,10 @@ class ToDoListNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void complete(int id) {
-    toDoList[id].isDone = !toDoList[id].isDone;
-    _updateToDo(toDoList[id]);
+  void complete(String id) {
+    final toDo = _toDoList.firstWhere((e) => e.id == id);
+    toDo.isDone = !toDo.isDone;
+    _updateToDo(toDo);
     notifyListeners();
   }
 
@@ -58,7 +66,7 @@ class ToDoListNotifier extends ChangeNotifier {
 
   void _updateToDo(ToDo toDo) {
     Hive.box(_hiveBox).put(
-      toDo.id.toString(),
+      toDo.id,
       toDo.toJson(),
     );
     notifyListeners();
