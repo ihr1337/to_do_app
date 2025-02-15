@@ -1,0 +1,2 @@
+/Users/kurbanov-ihor/Documents/Coding/to_do_app/android/app/.cxx/Debug/563z67a4/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/kurbanov-ihor/Documents/Coding/to_do_app/android/app/.cxx/Debug/563z67a4/arm64-v8a/CMakeFiles/rebuild_cache.dir
